@@ -33,9 +33,22 @@
   z-index: 0;
 }
 
+ion-content{
+  .alert{
+    width: 250px;
+    height: 150px;
+    position: relative;
+    margin-top: -330px;
+    margin-left: 6px;
 
-.leaflet-routing-container{
-  background-color: black !important;
-  margin: 0 !important;
-  padding: 20px !important;
+    .content{
+      display: flex;
+      justify-content: center;
+    }
+
+    .button{
+      display: flex;
+      justify-content: center;
+    }
+  }
 }

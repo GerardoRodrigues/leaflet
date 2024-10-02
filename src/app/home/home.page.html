@@ -14,6 +14,10 @@
         <ion-icon name="car"></ion-icon>
       </ion-fab-button>
 
+      <ion-fab-button (click)="openDiv()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+
       <ion-fab-button (click)="clearRoutes()">
         <ion-icon name="trash"></ion-icon>
       </ion-fab-button>
@@ -26,4 +30,38 @@
     (leafletMapReady)="onMapReady($event)"
     (leafletClick)="onClickMap($event)"
   ></div>
+  @if(create){
+    @if (invalid) {
+      <ion-alert message="A message should be a short, complete sentence." trigger="present-alert"></ion-alert>
+    }
+    <div class="alert">
+      <ion-card mode="ios">
+        <ion-card-header>
+          <ion-card-title>New Marker</ion-card-title>
+        </ion-card-header>
+      
+        <ion-card-content>
+          <div class="content">
+            <ion-list lines="none">
+              <ion-item>
+                <ion-input type="number" placeholder="lat" [(ngModel)]="lat" fill="outline"></ion-input>
+              </ion-item>
+  
+              <ion-item>
+                <ion-input type="number" placeholder="lgn" [(ngModel)]="lng" fill="outline"></ion-input>
+              </ion-item>
+  
+              <ion-item>
+                <ion-input type="text" placeholder="What" [(ngModel)]="popup" [clearInput]="true" fill="solid"></ion-input>
+              </ion-item>
+            </ion-list>
+          </div>
+
+          <div class="button">
+            <ion-button mode="ios" (click)="generateMarker()" id="present-alert">CRIAR</ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  }
 </ion-content>

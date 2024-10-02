@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine'
+import 'leaflet.markercluster'
 
 @Component({
   selector: 'app-home',
@@ -9,17 +10,29 @@ import 'leaflet-routing-machine'
 })
 export class HomePage{
   map!: L.Map
-  layers: L.LayerGroup = new L.LayerGroup();
   routingControl: L.Routing.Control[] = [];
   markers: L.Marker[] = [];
+  markersGroup: L.MarkerClusterGroup = new L.MarkerClusterGroup();
   waypoints: L.LatLng[] = [];
+  create = false;
+  baseLayers = {
+    'default': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+      attribution: '© OpenStreetMap contributors' 
+    }),
+    'other':  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      maxZoom: 17,
+      attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+    }),
+    'ciclo': L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+      maxZoom: 20,
+      attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    })
+  }
 
   mapOptions: L.MapOptions = {
     layers: [
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-        attribution: '© OpenStreetMap contributors' 
-      }),
-      this.layers
+      this.markersGroup,
+      this.baseLayers['default'],
     ],
     zoom: 13,
     maxZoom: 18,
@@ -57,15 +70,117 @@ export class HomePage{
           popupAnchor: [0, -41]
         })
         }).bindPopup('Poste1'),
+      L.marker([-3.784303840163873, -38.529140054815805], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste2'),
+      L.marker([-3.7843252510491285, -38.52900594436506], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste3'),
+      L.marker([-3.7843582595234273, -38.52890253067017], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste4'),
+      L.marker([-3.7843957285699212, -38.52875769138337], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste5'),
+      L.marker([-3.76125887908994, -38.53401780121203], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste6'),
+      L.marker([-3.7614622878735946, -38.53333115570422], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste7'),
+      L.marker([-3.7616891898661704, -38.532636165618904], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste8'),
+      L.marker([-38.532636165618904, -38.53194415569306], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste9'),
+      L.marker([-3.7633994271842433, -38.53316605087458], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste10'),
+      L.marker([-3.7636295997125093, -38.532484769784794], {
+        icon: L.icon({
+          iconSize: [25, 41],
+          iconAnchor: [ 13, 41 ],
+          iconUrl: 'assets/image/powerlinepole.png',
+          popupAnchor: [0, -41]
+        })
+        }).bindPopup('Poste11'),
       L.circle([-3.771249346607826, -38.53076934814454],{
         radius: 330,
         color: 'red',
       }).bindPopup('Lagoa')
     ]
 
-    markers.forEach(marker => {
-      this.layers.addLayer(marker);
-    })
+    this.markersGroup.addLayers(markers)
+  }
+
+  lat!:number
+  lng!:number
+  popup!: string
+  invalid = false;
+
+  generateMarker(){
+    if(this.lat === 0 || this.lng === 0){
+      this.invalid = true;
+      return;
+    }
+    const marker = L.marker([this.lat, this.lng]).addTo(this.map).bindPopup(this.popup).openPopup();
+    this.markersGroup.addLayer(marker)
+    this.markers.push(marker)
+    this.create = false;
+    this.lat = 0;
+    this.lng = 0;
+    this.popup = '';
+    this.invalid = false;
+  }
+
+  openDiv(){
+    this.create = true;
   }
 
   getRoute(){
@@ -89,6 +204,7 @@ export class HomePage{
 
   async onMapReady(lMap: L.Map) {
     this.map = lMap;
+    L.control.layers(this.baseLayers).addTo(this.map)
     this.setMarkers();
 
     setTimeout(() => lMap.invalidateSize(true), 0);
@@ -97,10 +213,10 @@ export class HomePage{
   async onClickMap(e: L.LeafletMouseEvent){
     const marker = L.marker(e.latlng).addTo(this.map)
     this.markers.push(marker);
-    this.addWaypoint(e.latlng)
+    this.addWaypointToRoute(e.latlng)
   }
 
-  addWaypoint(latlng: L.LatLng) {
+  addWaypointToRoute(latlng: L.LatLng) {
     this.waypoints.push(latlng);
 
     if(this.waypoints.length === 2){
@@ -120,6 +236,11 @@ export class HomePage{
       }).addTo(this.map);
 
       this.routingControl.push(newRoute);
+
+      this.markers.forEach(marker => {
+        this.map.removeLayer(marker)
+      })
+      this.markers = [];
 
       newRoute.on('routesfound', (e) => {
         const routes = e.routes;
