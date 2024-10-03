@@ -20,7 +20,13 @@ export class HomePage{
     'default': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
       attribution: '<a href=\"https://www.openstreetmap.org?utm_medium=map-attribution&utm_source=jawg\" target=\"_blank\">&copy; OpenStreetMap</a>&nbsp;contributors' 
     }),
-    'jawglab': L.tileLayer('https://tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=bfXrf5CkTSqenCee9fXS3fAUyj5q9ouKrj483Z1FqyJFciGzBMRJJ3Q89CwUCVai', {
+    'jawglabStreet': L.tileLayer('https://tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=bfXrf5CkTSqenCee9fXS3fAUyj5q9ouKrj483Z1FqyJFciGzBMRJJ3Q89CwUCVai', {
+      attribution: "<a href=\"https://www.jawg.io?utm_medium=map&utm_source=attribution\" target=\"_blank\">&copy; Jawg</a> - <a href=\"https://www.openstreetmap.org?utm_medium=map-attribution&utm_source=jawg\" target=\"_blank\">&copy; OpenStreetMap</a>&nbsp;contributors"
+    }),
+    'jawgsunny': L.tileLayer('https://tile.jawg.io/jawg-sunny/{z}/{x}/{y}{r}.png?access-token=bfXrf5CkTSqenCee9fXS3fAUyj5q9ouKrj483Z1FqyJFciGzBMRJJ3Q89CwUCVai', {
+      attribution: "<a href=\"https://www.jawg.io?utm_medium=map&utm_source=attribution\" target=\"_blank\">&copy; Jawg</a> - <a href=\"https://www.openstreetmap.org?utm_medium=map-attribution&utm_source=jawg\" target=\"_blank\">&copy; OpenStreetMap</a>&nbsp;contributors"
+    }),
+    'jawglagoon': L.tileLayer('https://tile.jawg.io/jawg-lagoon/{z}/{x}/{y}{r}.png?access-token=bfXrf5CkTSqenCee9fXS3fAUyj5q9ouKrj483Z1FqyJFciGzBMRJJ3Q89CwUCVai', {
       attribution: "<a href=\"https://www.jawg.io?utm_medium=map&utm_source=attribution\" target=\"_blank\">&copy; Jawg</a> - <a href=\"https://www.openstreetmap.org?utm_medium=map-attribution&utm_source=jawg\" target=\"_blank\">&copy; OpenStreetMap</a>&nbsp;contributors"
     }),
     'maptile': L.tileLayer.provider('MapTiler.Streets', {
