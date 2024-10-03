@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine'
 import 'leaflet.markercluster'
+import 'leaflet-providers'
 
 @Component({
   selector: 'app-home',
@@ -17,16 +18,14 @@ export class HomePage{
   create = false;
   baseLayers = {
     'default': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-      attribution: '© OpenStreetMap contributors' 
+      attribution: '<a href=\"https://www.openstreetmap.org?utm_medium=map-attribution&utm_source=jawg\" target=\"_blank\">&copy; OpenStreetMap</a>&nbsp;contributors' 
     }),
-    'other':  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-      maxZoom: 17,
-      attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+    'jawglab': L.tileLayer('https://tile.jawg.io/jawg-streets/{z}/{x}/{y}{r}.png?access-token=bfXrf5CkTSqenCee9fXS3fAUyj5q9ouKrj483Z1FqyJFciGzBMRJJ3Q89CwUCVai', {
+      attribution: "<a href=\"https://www.jawg.io?utm_medium=map&utm_source=attribution\" target=\"_blank\">&copy; Jawg</a> - <a href=\"https://www.openstreetmap.org?utm_medium=map-attribution&utm_source=jawg\" target=\"_blank\">&copy; OpenStreetMap</a>&nbsp;contributors"
     }),
-    'ciclo': L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
-      maxZoom: 20,
-      attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    })
+    'maptile': L.tileLayer.provider('MapTiler.Streets', {
+      key: 'ymKtMqOZ40RLjH2DBCe0'
+  })
   }
 
   mapOptions: L.MapOptions = {
@@ -126,14 +125,6 @@ export class HomePage{
           popupAnchor: [0, -41]
         })
         }).bindPopup('Poste8'),
-      L.marker([-38.532636165618904, -38.53194415569306], {
-        icon: L.icon({
-          iconSize: [25, 41],
-          iconAnchor: [ 13, 41 ],
-          iconUrl: 'assets/image/powerlinepole.png',
-          popupAnchor: [0, -41]
-        })
-        }).bindPopup('Poste9'),
       L.marker([-3.7633994271842433, -38.53316605087458], {
         icon: L.icon({
           iconSize: [25, 41],
