@@ -1,48 +1,52 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title> Leaflet </ion-title>
+    <ion-title>Parque de Luminárias</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-fab>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
-    <ion-fab-list>
-      <ion-fab-button (click)="getRoute()">
+
+    <ion-fab-list side="top">
+      <ion-fab-button (click)="createRoute()">
         <ion-icon name="car"></ion-icon>
+      </ion-fab-button>
+
+      <ion-fab-button (click)="completeRoute()">
+        <ion-icon name="checkmark"></ion-icon>
       </ion-fab-button>
 
       <ion-fab-button (click)="openDiv()">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-
-      <ion-fab-button (click)="clearRoutes()">
+  
+      <ion-fab-button (click)="clear()">
         <ion-icon name="trash"></ion-icon>
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
+
   <div
-    class="leaflet"
-    leaflet
-    [leafletOptions]="mapOptions"
-    (leafletMapReady)="onMapReady($event)"
-    (leafletClick)="onClickMap($event)"
+  class="leaflet"
+  leaflet
+  [leafletOptions]="mapOptions"
+  (leafletMapReady)="onMapReady($event)"
+  (leafletClick)="onClickMap($event)"
   ></div>
-  @if(create){
-    @if (invalid) {
-      <ion-alert message="A message should be a short, complete sentence." trigger="present-alert"></ion-alert>
-    }
-    <div class="alert">
-      <ion-card mode="ios">
+
+  @if (create) {
+    <div class="card">
+      <ion-card>
         <ion-card-header>
           <ion-card-title>New Marker</ion-card-title>
         </ion-card-header>
-      
+
         <ion-card-content>
           <div class="content">
-            <ion-list lines="none">
+            <ion-list>
               <ion-item>
                 <ion-input type="number" placeholder="lat" [(ngModel)]="lat" fill="outline"></ion-input>
               </ion-item>

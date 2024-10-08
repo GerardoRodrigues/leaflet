@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalhes da Luminária</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="fecharModal()">Fechar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Luminária {{ luminaria.id }}</ion-card-title>
+      <ion-card-subtitle>Situação: <span [ngStyle]="{'color': getCorSituacao(luminaria.situacao)}">{{ luminaria.situacao }}</span></ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label><strong>ID:</strong></ion-label>
+          <ion-note>{{ luminaria.id }}</ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Posição GPS:</strong></ion-label>
+          <ion-note>{{ luminaria.posicaoGPS.lat }}, {{ luminaria.posicaoGPS.lng }}</ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Potência Atual:</strong></ion-label>
+          <ion-note>{{ luminaria.potenciaAtual }}W</ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label [ngStyle]="{'color': luminaria.alertaIncendio ? 'red' : '#333'}"><strong>Alerta de Incêndio:</strong></ion-label>
+          <ion-note [ngStyle]="{'color': luminaria.alertaIncendio ? 'red' : '#333'}">{{ luminaria.alertaIncendio ? 'Sim' : 'Não' }}</ion-note>
+        </ion-item>
+
+        <ion-item>
+          <ion-label><strong>Última Atualização:</strong></ion-label>
+          <ion-note>{{ luminaria.dataAtualizacao | date: 'short' }}</ion-note>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

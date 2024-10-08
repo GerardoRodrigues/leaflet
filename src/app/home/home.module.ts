@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { InfoLuminariasModule } from '../components/info-luminarias/info-luminarias.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    LeafletModule
+    LeafletModule,
+    InfoLuminariasModule
   ],
   declarations: [HomePage]
 })
